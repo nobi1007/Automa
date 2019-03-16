@@ -30,8 +30,8 @@ def save_response_content(response, destination):
                 f.write(chunk)
 
 if __name__ == "__main__":
-    file_id = '1YDDJTDuYsxcOvnSEIEj2sG_hlySQGkZW'
-    destination='clouds.jpg'
+    file_id = 'g-drive folder id from where the file has to be downloaded'
+    destination='name for the downloaded image (with or without path)'
     download_file_from_google_drive(file_id, destination)
     
     
