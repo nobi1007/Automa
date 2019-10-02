@@ -18,7 +18,7 @@ except url.URLError as err:
 # ------------ Launching WhatsApp ---------------------
 
 if token == 1:
-    driver = webdriver.Chrome('/home/shyam/chromedriver')
+    driver = webdriver.Chrome('/home/shyam/chromedriver') # add the path to your chrome webdriver
     driver.get('https://web.whatsapp.com')
 
     # ------------ Message details ---------------------
@@ -26,8 +26,6 @@ if token == 1:
     person = input("Enter the Recipient's name: ").strip().split(",")
     message = input("Enter the message: ").strip()
     number_of_messages = int(input("n = ").strip())
-
-    # message = "Hey guys, let's solve this fun challenge to brush up your mathematical skills.\nAsk doubts if any! Happy Coding! 😀"
 
     for i in person:
         searchEle = driver.find_element_by_css_selector("._2zCfw")
@@ -42,5 +40,4 @@ if token == 1:
         time.sleep(1)
 
     print(person)
-    # time.sleep(5)
     # driver.close()

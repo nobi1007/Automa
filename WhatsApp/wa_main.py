@@ -21,7 +21,6 @@ class Window(qt.QMainWindow):
         self.text_name.move(230,20)
         self.text_name.setGeometry(qtc.QRect(230,16,300,25))
         
-        
         # message section
         self.lbl_msg = qt.QLabel("Message: ", self)
         self.lbl_msg.setGeometry(qtc.QRect(100,50,150,50))
