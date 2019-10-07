@@ -1,4 +1,10 @@
-1 - pip3 install selenium
+1 - pip3 install selenium & # pip install -U selenium
+
 2 - sudo apt-get install python3-pyqt4
+
 3 - check for urllib
+
 4 - download the chrome webdriver from : https://chromedriver.chromium.org/home
+
+from here ->  https://chromedriver.storage.googleapis.com/index.html?path=77.0.3865.40/
+path  -> F:\chromedriver.exe
