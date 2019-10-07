@@ -18,10 +18,14 @@ except url.URLError as err:
 # ------------ Launching WhatsApp ---------------------
 
 if token == 1:
-    driver = webdriver.Chrome('/home/shyam/chromedriver') # add the path to your chrome webdriver
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_experimental_option("excludeSwitches",['enable-automation'])
+    driver = webdriver.Chrome('/home/shyam/chromedriver',options=chrome_options) # add the path to your chrome webdriver
+    driver.set_window_position(0, 0)
+    driver.set_window_size(564, 768)
     driver.get('https://web.whatsapp.com')
 
-    # ------------ Message details ---------------------
+    # ------------ Message details --------`-------------
 
     person = input("Enter the Recipient's name: ").strip().split(",")
     message = input("Enter the message: ").strip()
@@ -38,6 +42,6 @@ if token == 1:
         meassageEle.send_keys((message+"\n")*number_of_messages)
         meassageEle.send_keys(Keys.RETURN)
         time.sleep(1)
-
+        
     print(person)
     # driver.close()

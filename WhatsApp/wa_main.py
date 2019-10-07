@@ -10,8 +10,9 @@ from PyQt4 import QtCore as qtc
 class Window(qt.QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
-        self.setWindowTitle("Main")
-        # self.setWindowIcon(qt.QIcon("name.png"))
+        self.setWindowTitle("WhatsBulk")
+        self.setStyleSheet("background-color:white;")
+        self.setWindowIcon(qt.QIcon("logo.ico"))
         
         # recipient's name section
         self.lbl_name = qt.QLabel("Recipient's Name: ", self)
@@ -46,15 +47,14 @@ class Window(qt.QMainWindow):
         self.text_status.setReadOnly(True)
         self.text_status.setGeometry(qtc.QRect(140,240,300,250))
     
-
-    
-        self.setGeometry(400,100,600,500)        
+        self.setGeometry(700,120,600,500)        
         self.show()
         
     def buttonClicked(self):
 
         toBePrinted = "Total Recepients =   "
-        names = self.text_name.text().split(",")
+        names = self.text_name.text().strip().split(",")
+        if names
         toBePrinted += "%d \n\n"%(len(names))
         toBePrinted += "Recepients : \n"
         for i in range(len(names)):
@@ -63,9 +63,13 @@ class Window(qt.QMainWindow):
         message = self.text_msg.toPlainText()
         toBePrinted += message
 
-        driver = webdriver.Chrome('/home/shyam/chromedriver')
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_experimental_option("excludeSwitches",['enable-automation'])
+        driver = webdriver.Chrome('/home/shyam/chromedriver',options=chrome_options)
+        driver.set_window_position(0, 0)
+        driver.set_window_size(564, 768)   
         driver.get('https://web.whatsapp.com')
-        time.sleep(10)
+        time.sleep(15)
         # ------------ Message details ---------------------
 
         # person = input("Enter the Recipient's name: ").strip().split(",")
@@ -89,7 +93,6 @@ class Window(qt.QMainWindow):
 
         self.text_status.setText(toBePrinted)
 
-        
 app = qt.QApplication(sys.argv)
 GUI = Window()
 app.exec_()
