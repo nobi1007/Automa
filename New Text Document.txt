@@ -1,0 +1,12 @@
+#!/bin/bash
+
+s1="hi"
+s2="hi"
+
+if [ "$s1" == "$s2" ]
+then
+	echo match
+else
+	echo no match
+fi
+read
