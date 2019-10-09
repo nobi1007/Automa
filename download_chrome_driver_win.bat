@@ -19,12 +19,12 @@ echo Current Chrome version is %version% .
 echo Downloading required version . . .
 echo.
 if "%version_initials%" == "%v1%" (
-    curl -o chromedriver_v76.zip https://chromedriver.storage.googleapis.com/76.0.3809.126/chromedriver_win32.zip
+    curl -o chromedriver_v76.zip --insecure https://chromedriver.storage.googleapis.com/76.0.3809.126/chromedriver_win32.zip --ssl-no-revoke
 ) else (	
 	if "%version_initials%" == "%v2%" ( 
-		curl -o chromedriverv_77.zip https://chromedriver.storage.googleapis.com/77.0.3865.40/chromedriver_win32.zip 
+		curl -o chromedriver_v77.zip --insecure https://chromedriver.storage.googleapis.com/77.0.3865.40/chromedriver_win32.zip --ssl-no-revoke
 	) else ( 
-		curl -o chromedriverv_78.zip https://chromedriver.storage.googleapis.com/78.0.3904.11/chromedriver_win32.zip 
+		curl -o chromedriver_v78.zip --insecure https://chromedriver.storage.googleapis.com/78.0.3904.11/chromedriver_win32.zip --ssl-no-revoke
 	)
 )
 echo.
@@ -34,5 +34,14 @@ echo Starting extraction . . .
 echo.
 set mypath=%cd%
 powershell Expand-Archive -Force %mypath%\chromedriver_v%version_initials%.zip %mypath%
+echo.
+echo Installing dependencies . . .
+pip install cx-freeze
+pip install selenium
+pip install PyQt4-4.11.4-cp36-cp36m-win32.whl
+echo.
+echo Installing -- WhatsBulk --
+echo.
+python setup.py build
 echo.
 pause

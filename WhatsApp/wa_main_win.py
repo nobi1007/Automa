@@ -4,6 +4,10 @@ from multiprocessing import Queue
 import urllib.request as url
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import *
 import time
 import sys
 from PyQt4 import QtGui as qt
@@ -18,7 +22,7 @@ class Window(qt.QMainWindow):
         
         # recipient's name section
         self.lbl_name = qt.QLabel("Recipient's Name: ", self)
-        self.lbl_name.setGeometry(qtc.QRect(100,20,150,20))
+        self.lbl_name.setGeometry(qtc.QRect(100,20,150,20))  
 
         self.text_name = qt.QLineEdit(self)
         self.text_name.move(230,20)
@@ -30,8 +34,7 @@ class Window(qt.QMainWindow):
         
         self.text_msg = qt.QTextEdit(self)
         self.text_msg.move(230,46)
-        self.text_msg.setGeometry(qtc.QRect(230,46,300,80))
-        
+        self.text_msg.setGeometry(qtc.QRect(230,46,300,80))        
 
         # send message button
 
@@ -64,34 +67,45 @@ class Window(qt.QMainWindow):
         message = self.text_msg.toPlainText()
         toBePrinted += message
 
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_experimental_option("excludeSwitches",['enable-automation'])
-        driver = webdriver.Chrome(executable_path="C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver_v76.exe",options=chrome_options)
-        driver.set_window_position(0, 0)
-        driver.set_window_size(564, 768)   
-        driver.get('https://web.whatsapp.com')
-        time.sleep(15)
-        # ------------ Message details ---------------------
+        try:
+            chrome_options = webdriver.ChromeOptions()
+            chrome_options.add_experimental_option("excludeSwitches",['enable-automation'])
+            driver = webdriver.Chrome(executable_path="chromedriver.exe",options=chrome_options)
+            driver.implicitly_wait
+            driver.set_window_position(0, 0)
+            driver.set_window_size(564, 768)
+            driver.get('https://web.whatsapp.com')
+        except:
+            toBePrinted = "Your Chrome version is not supported"
+            driver.close()
+            # ------------ Message details ---------------------
 
-        # person = input("Enter the Recipient's name: ").strip().split(",")
-        # message = input("Enter the message: ").strip()
-        # number_of_messages = int(input("n = ").strip())
-        # message = "Hey guys, let's solve this fun challenge to brush up your mathematical skills.\nAsk doubts if any! Happy Coding! 😀"
+            # person = input("Enter the Recipient's name: ").strip().split(",")
+            # message = input("Enter the message: ").strip()
+            # number_of_messages = int(input("n = ").strip())
+            # message = "Hey guys, let's solve this fun challenge to brush up your mathematical skills.\nAsk doubts if any! Happy Coding! 😀"
+        try:
+            WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.CSS_SELECTOR, '._2zCfw')))
+        except TimeoutException as e:
+            toBePrinted = str(e)
+            driver.close()
+        try:
+            for i in names:
+                searchEle = driver.find_element_by_css_selector("._2zCfw")
+                searchEle.clear()
+                searchEle.send_keys(i)
+                searchEle.send_keys(Keys.RETURN)
 
-        for i in names:
-            searchEle = driver.find_element_by_css_selector("._2zCfw")
-            searchEle.clear()
-            searchEle.send_keys(i)
-            searchEle.send_keys(Keys.RETURN)
-
-            meassageEle = driver.find_element_by_css_selector("._3u328")
-            meassageEle.clear()
-            meassageEle.send_keys(message)
-            # meassageEle.send_keys((message+"\n")*number_of_messages)
-            meassageEle.send_keys(Keys.RETURN)
-            time.sleep(1)
-        driver.close()
-
+                meassageEle = driver.find_element_by_css_selector("._3u328")
+                meassageEle.clear()
+                meassageEle.send_keys(message)
+                # meassageEle.send_keys((message+"\n")*number_of_messages)
+                meassageEle.send_keys(Keys.RETURN)
+                time.sleep(1)
+            driver.close()
+        except NoSuchElementException as e:
+            toBePrinted = str(e)
+            driver.close()    
         self.text_status.setText(toBePrinted)
 
 app = qt.QApplication(sys.argv)
