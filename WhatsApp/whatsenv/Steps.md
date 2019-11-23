@@ -6,7 +6,7 @@ git clone link_to_repo && cd Automa/WhatApp/whatsenv
 ```
 2. Download the required packages:
 ```
-pip3 install requirements.txt
+pip3 install -r requirements.txt
 ```
 3. Open the wa_main.py file in your editor and change the path of chromedriver according to your pc (in line 68).
 
