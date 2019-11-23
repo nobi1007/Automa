@@ -20,7 +20,7 @@ except url.URLError as err:
 if token == 1:
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_experimental_option("excludeSwitches",['enable-automation'])
-    driver = webdriver.Chrome('F:\\chromedriver2.exe',options=chrome_options) # add the path to your chrome webdriver
+    driver = webdriver.Chrome('/home/shyam/chromedriver',options=chrome_options) # add the path to your chrome webdriver
     driver.set_window_position(0, 0)
     driver.set_window_size(564, 768)
     driver.get('https://web.whatsapp.com')

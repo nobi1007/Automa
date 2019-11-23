@@ -54,7 +54,7 @@ class Window(qt.QMainWindow):
 
         toBePrinted = "Total Recepients =   "
         names = self.text_name.text().strip().split(",")
-        if names
+        # if names
         toBePrinted += "%d \n\n"%(len(names))
         toBePrinted += "Recepients : \n"
         for i in range(len(names)):
