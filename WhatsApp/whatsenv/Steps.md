@@ -15,6 +15,17 @@ pip3 install requirements.txt
 sudo python3 wa_main.py
 ```
 
+##### Additional
+
+
+5. For PYQt4 installation(system wide):
+```
+sudo apt-get install python3-PyQt4
+```
+6. For getting PYQt4 into the virtualenv after installation (from step 5): 
+   1. Just go to /usr/lib/python3/dist-packages/ and the copy the folder of PyQt4 and all the sip related files from that directory. 
+   2. Then go to your virtualenv folder (here, viren) and then go to /lib/python3.6/site-packages and paste all the copied items in here, and you are good to go now :) .
+
 #### NOTE: _here, we didn't install the PyQt4 and sip explicity, but they have been added in the site-packages folder already_.
 
 
